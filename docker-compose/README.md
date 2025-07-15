@@ -1,4 +1,33 @@
-# Docker-compose configuration
+# Hardhat Regtest Network Explorer with Blockscout
+
+## Config
+
+### Ports
+
+Nginx proxy:
+
+- 80 -> 30080: Explorer frontend
+- 8080 -> 30180: Stats API
+- 8081 -> 30181: Visualize API
+
+Internal request use 80, 8080 and 8081.
+External request use 30080, 30180 and 30181.
+
+### Allow Origin
+
+All `Access-Control-Allow-Origin` in nginx should be set to `*`.
+
+### Filesystem
+
+If error from `backend` service
+
+0. Shutdown all the services: `docker-compose down`
+1. Remove contents: `rm -rf ./services/dets/* ./services/logs/*`
+2. Add 777: `chmod 777 ./services/dets ./services/logs`
+3. Change ownership: `chown ec2-user:ec2-user ./services/dets ./services/logs`
+4. Run again: `docker-compose up -d`
+
+## Docker-compose configuration
 
 Runs Blockscout locally in Docker containers with [docker-compose](https://github.com/docker/compose).
 
@@ -40,14 +69,14 @@ and 5 containers for microservices (written in Rust):
 
 The repo contains built-in configs for different JSON RPC clients without need to build the image.
 
-| __JSON RPC Client__    | __Docker compose launch command__ |
-| -------- | ------- |
-| Erigon  | `docker-compose -f erigon.yml up -d`    |
-| Geth (suitable for Reth as well) | `docker-compose -f geth.yml up -d`     |
-| Geth Clique    | `docker-compose -f geth-clique-consensus.yml up -d`    |
-| Nethermind, OpenEthereum    | `docker-compose -f nethermind.yml up -d`    |
-| Anvil    | `docker-compose -f anvil.yml up -d`    |
-| HardHat network    | `docker-compose -f hardhat-network.yml up -d`    |
+| **JSON RPC Client**              | **Docker compose launch command**                   |
+| -------------------------------- | --------------------------------------------------- |
+| Erigon                           | `docker-compose -f erigon.yml up -d`                |
+| Geth (suitable for Reth as well) | `docker-compose -f geth.yml up -d`                  |
+| Geth Clique                      | `docker-compose -f geth-clique-consensus.yml up -d` |
+| Nethermind, OpenEthereum         | `docker-compose -f nethermind.yml up -d`            |
+| Anvil                            | `docker-compose -f anvil.yml up -d`                 |
+| HardHat network                  | `docker-compose -f hardhat-network.yml up -d`       |
 
 - Running only explorer without DB: `docker-compose -f external-db.yml up -d`. In this case, no db container is created. And it assumes that the DB credentials are provided through `DATABASE_URL` environment variable on the backend container.
 - Running explorer with external backend: `docker-compose -f external-backend.yml up -d`
@@ -90,4 +119,4 @@ cd ./docker
 make stop
 ```
 
-***Note***: Makefile uses the same .env files since it is running docker-compose services inside.
+**_Note_**: Makefile uses the same .env files since it is running docker-compose services inside.

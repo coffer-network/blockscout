@@ -1,11 +1,9 @@
-version: '3.9'
-
 services:
   proxy:
     image: nginx
     container_name: proxy
     extra_hosts:
-      - 'host.docker.internal:host-gateway'
+      - "host.docker.internal:host-gateway"
     volumes:
       - "../proxy:/etc/nginx/templates"
     environment:
@@ -13,8 +11,8 @@ services:
       FRONT_PROXY_PASS: ${FRONT_PROXY_PASS:-http://frontend:3000}
     ports:
       - target: 80
-        published: 80
+        published: 30080
       - target: 8080
-        published: 8080
+        published: 30180
       - target: 8081
-        published: 8081
+        published: 30181
