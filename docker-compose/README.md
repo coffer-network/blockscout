@@ -7,11 +7,11 @@
 Nginx proxy:
 
 - 80 -> 30080: Explorer frontend
-- 8080 -> 30180: Stats API
-- 8081 -> 30181: Visualize API
+- 8080 -> 31080: Stats API
+- 8081 -> 31081: Visualize API
 
 Internal request use 80, 8080 and 8081.
-External request use 30080, 30180 and 30181.
+External request use 30080, 31080 and 31081.
 
 ### Allow Origin
 

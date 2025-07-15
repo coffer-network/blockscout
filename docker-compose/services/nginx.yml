@@ -13,6 +13,6 @@ services:
       - target: 80
         published: 30080
       - target: 8080
-        published: 30180
+        published: 31080
       - target: 8081
-        published: 30181
+        published: 31081
