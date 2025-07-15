@@ -28,6 +28,8 @@ services:
       - db:database
     environment:
       ETHEREUM_JSONRPC_VARIANT: "geth"
+      ETHEREUM_JSONRPC_HTTP_URL: http://host.docker.internal:30056/
+      ETHEREUM_JSONRPC_TRACE_URL: http://host.docker.internal:30056/
       ETHEREUM_JSONRPC_WS_URL: ws://host.docker.internal:30056/
       INDEXER_DISABLE_PENDING_TRANSACTIONS_FETCHER: "true"
       INDEXER_INTERNAL_TRANSACTIONS_TRACER_TYPE: "opcode"
